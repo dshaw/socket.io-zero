@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Socket.IO-redis</title>
+  <style>
+    body { margin: 2em; }
+    #messenger {
+      font-size: 2em;
+      margin: auto;
+      padding: .2em;
+    }
+    #messages { line-height: 1.5em }
+  </style>
+</head>
+<body>
+  <form id=form>
+    <input id=messenger type=text autofocus placeholder="Send Message">
+  </form>
+  <pre id=messages></pre>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var messages = document.getElementById('messages')
+      , messenger = document.getElementById('messenger')
+      , form = document.getElementById('form');
+
+    form.onsubmit = function (event) {
+      event.preventDefault();
+      var message = messenger.value;
+      console.log('messenger', message);
+      socket.send(message);
+      messenger.value = '';
+    };
+    
+    var socket = io.connect('http://localhost:'+location.port);
+
+    socket.on('connecting', function (data) { console.log('connecting', arguments); });
+
+    socket.on('connect', function (data) {
+      console.log('connected', arguments);
+      socket.send('<< client connected');
+    });
+
+    socket.on('message', function (msg) {
+      console.log('message', msg);
+      messages.innerHTML += msg + '\n';
+    });
+
+    socket.on('broadcast', function (msg) {
+      console.log('broadcast', msg);
+      messages.innerHTML += 'broadcast >> ' + msg + '\n';
+    });
+
+    socket.on('new socket', function (msg) {
+      console.log('new socket', msg);
+      messages.innerHTML += 'new socket ' + msg + '\n';
+    });
+  </script>
+</body>
+</html>

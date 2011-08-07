@@ -1,0 +1,24 @@
+{
+    "name": "socket.io-zero"
+  , "version": "0.0.1"
+  , "description": "0MQ/Redis Store for Socket.IO"
+  , "keywords": ["socket.io", "store", "0mq", "zmq", "zeromq", "redis"]
+  , "author": "Daniel D. Shaw <dshaw@dshaw.com> (http://dshaw.com)"
+  , "repository":{
+        "type": "git"
+      , "url": "https://github.com/dshaw/socket.io-zero"
+    }
+  , "dependencies": {
+        "socket.io": "https://github.com/dshaw/socket.io/tarball/dev%2Fredis"
+      , "redis": "0.6.7"
+    }
+    , "devDependencies": {
+        "expresso": "0.7.7"
+      , "should": "0.2.1"
+    }
+  , "scripts" : {
+        "test" : "make test"
+    }
+  , "main": "index"
+  , "engines": { "node": ">= 0.4.0" }
+}

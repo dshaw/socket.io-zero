@@ -17,19 +17,21 @@ server.listen(port);
 console.log('version', sio.version);
 
 io.configure(function () {
-  io.set('store', new ZeroStore({ zmq: zmqAddr }));
+  io.set('store', new ZeroStore({ address: zmqAddr }));
 });
 
 io.sockets.on('connection', function (socket) {
-  console.log('new connection', socket.id);
+
   socket.send('>> simple socket.io server');
-  socket.broadcast.emit('welcome '+data);
+  socket.broadcast.send('new connection ' + socket.id);
+
   socket.on('message', function (data) {
     console.log('message:', data);
     // echo it back to the client
     socket.send(data);
-    socket.broadcast.emit('broadcast: '+data);
+    socket.broadcast.emit('broadcast', data);
   });
+  
   socket.on('disconnect', function () {
     console.log('disconnect', arguments);
   });

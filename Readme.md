@@ -3,6 +3,11 @@ Prototype 0MQ "Store" for Socket.io
 
 Since Socket.io Stores are actually a combination of dispatch and data store, this more precisely ZeroMQ dispatch and Redis-based persistance.
 
+Caveat Emptor
+--------
+
+Until I can get [0MQ Forwarding Device](http://api.zeromq.org/2-1:zmq-device) support in `zeromq.node`, only one Socket.io server instance can publish!
+
 Why?
 --------
 
@@ -16,7 +21,7 @@ Yes, hack with it.
 Should I use it in production?
 --------
 
-I wouldn't. Use the native RedisStore.
+No. Use the native RedisStore.
 
 If you don't recommend this, why build it?
 --------

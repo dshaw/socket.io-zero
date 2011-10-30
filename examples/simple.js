@@ -1,27 +1,28 @@
-  var fs = require('fs')
+var fs = require('fs')
   , http = require('http')
   , sio = require('socket.io')
-  , ZeroStore = require('../')
-
+  , ZeroStore = require('..')
   , simple = fs.readFileSync(__dirname + '/simple.html')
   , server = http.createServer(function(req, res) {
       res.writeHead(200, {"Content-Type": "text/html"});
       res.end(simple);
     })
   , io = sio.listen(server)
-  , port = process.argv[2] || 8124
-  , zmqAddr = 'tcp://127.0.0.1:9000'
+  , port = process.argv[2] || 8124;
 
 server.listen(port);
 
-console.log('version', sio.version);
+server.on('listening', function () {
+  var nodeId = io.sockets.manager.store.nodeId;
+  console.log('NodeId %d listening on :%d', nodeId, port);
+  io.sockets.emit('socket.io node ' + nodeId + 'ready');
+});
 
 io.configure(function () {
-  io.set('store', new ZeroStore({ address: zmqAddr }));
+  io.set('store', new ZeroStore);
 });
 
 io.sockets.on('connection', function (socket) {
-
   socket.send('>> simple socket.io server');
   socket.broadcast.send('new connection ' + socket.id);
 

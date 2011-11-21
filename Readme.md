@@ -3,11 +3,6 @@ Prototype 0MQ "Store" for Socket.io
 
 Since Socket.io Stores are actually a combination of dispatch and data store, this more precisely ZeroMQ dispatch and Redis-based persistance.
 
-Caveat Emptor
---------
-
-Until I can get [0MQ Forwarding Device](http://api.zeromq.org/2-1:zmq-device) support in `zeromq.node`, only one Socket.io server instance can publish!
-
 Why?
 --------
 
@@ -35,3 +30,17 @@ How do I use it?
 --------
 
 Check out the examples directory.
+
+```
+node examples\simple-broker
+node examples\simple 8881
+node examples\simple 8882
+node examples\simple 8883
+node examples\simple 8884
+```
+
+Open tabs:
+  [localhost:8881](http://localhost:8881)
+  [localhost:8882](http://localhost:8882)
+  [localhost:8883](http://localhost:8883)
+  [localhost:8884](http://localhost:8884)

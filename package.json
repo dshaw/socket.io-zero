@@ -11,16 +11,19 @@
   , "main": "index"
   , "directories" : {
         "lib" : "lib"
-      , "example" : "example"
+      , "examples" : "examples"
       , "test" : "test"
     }
   , "dependencies": {
         "socket.io": "~0.8.5"
-      , "zmq": "~1.0.2"
-      , "redis": "~0.6.7"
+      , "zmq": "~1.0.3"
+      , "redis": ">= 0.6.7"
     }
     , "devDependencies": {
-        "tap": "0.0.x"
+        "felix-metrics": ""
+      , "mixture": ""
+      , "socket.io-client": "~0.8.5"
+      , "tap": "0.0.x"
     }
   , "scripts" : {
         "test" : "tap ./test/*.js"
